@@ -1,0 +1,18 @@
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: denyenv
+webHooks:
+  - name: denyenv.hightowerlabs.com
+    rules:
+      - apiGroups:
+          - ""
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+        resources:
+          - pods
+    failurePolicy: Ignore
+    clientConfig:
+      url: "https://us-central1-hightowerlabs.cloudfunctions.net/denyenv"
